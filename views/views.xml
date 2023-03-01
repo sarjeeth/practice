@@ -1,0 +1,146 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="module_scaffold.list">
+      <field name="name">module_scaffold list</field>
+      <field name="model">module_scaffold.module_scaffold</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+<record model="ir.ui.view" id="student_id_tree">
+  <field name="name">Students Details</field>
+  <field name="model">student.model</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="name"/>
+      <field name="age"/>
+      <field name="dob"/>
+      <field name="gender"/>
+    </tree>
+  </field>  
+</record>
+
+
+<record model="ir.ui.view" id="student_id_form">
+  <field name="name">Students Form</field>
+  <field name="model">student.model</field>
+  <field name="arch" type="xml">
+    <form>
+      <group>
+      <field name="name"/>
+      <field name="age"/>
+      <field name="dob"/>
+      <field name="gender"/>
+      <field name="example" widget = 'Image'/>
+      </group>
+    </form>
+  </field>  
+</record>
+
+<record model="ir.ui.view" id="student_id_search">
+  <field name="name">Students_search</field>
+  <field name="model">student.model</field>
+  <field name="arch" type="xml">
+    <search>
+      <field name="name" filter_domain="[('name','ilike',self)]"/>
+      <field name="age" filter_domain="[('age','ilike',self)]"/>
+      <field name="dob" filter_domain="[('dob','ilike',self)]"/>
+      <field name="gender" filter_domain="[('gender','ilike',self)]"/>
+    </search>
+  </field>  
+</record>
+
+<record model="ir.ui.view" id="teachers_id_tree">
+  <field name="name">Teachers Details</field>
+  <field name="model">teacher.model</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="name"/>
+      <field name="age"/>
+    </tree>
+  </field>  
+</record>
+
+<record model="ir.ui.view" id="teacher_id_form">
+  <field name="name">Teacher Form</field>
+  <field name="model">teacher.model</field>
+  <field name="arch" type="xml">
+    <form>
+    <sheet>  
+      <group>
+        <group>
+          <field name="name"/>
+          <field name="age"/>
+          <!-- <field name="stud_id"/> -->
+          <field name="tution" widget="many2many_tags"/>
+          </group>
+      </group>
+      <notebook>
+        <page string = "one2many">
+          <field name="student_ids"/>
+          <tree editable="bottom">
+          </tree>
+        </page>
+      </notebook>
+    </sheet>  
+    </form>
+  </field>  
+</record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="student_action_id">
+      <field name="name">student window</field>
+      <field name="res_model">student.model</field>
+      <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="teacher_action_id">
+      <field name="name">teacher window</field>
+      <field name="res_model">teacher.model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="module_scaffold.action_server">
+      <field name="name">module_scaffold server</field>
+      <field name="model_id" ref="model_module_scaffold_module_scaffold"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="High_School" id="high_school_id" action="student_action_id"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="TEacher" id="teacher_id" parent="high_school_id" action="teacher_action_id"/>
+    <!-- <menuitem name="Menu 2" id="module_scaffold.menu_2" parent="module_scaffold.menu_root"/> -->
+
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="module_scaffold.menu_1_list" parent="module_scaffold.menu_1"
+              action="module_scaffold.action_window"/>
+    <menuitem name="Server to list" id="module_scaffold" parent="module_scaffold.menu_2"
+              action="module_scaffold.action_server"/>
+-->
+  </data>
+</odoo>
